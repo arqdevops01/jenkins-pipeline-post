@@ -21,11 +21,14 @@ pipeline {
 
         always{
             echo 'Esto siempre se ejecuta independiente si es exitoso o no el pipeline'
-            cleanWs() //Elimina el workspace al terminar el pipeline
+            
         }
         success {
         // One or more steps need to be included within each condition's block.
         echo 'the deployment has worked'
+        archivateArtifacts allowEmptyArchive: true, artifacts: 'shopping/*.jsp', followSymlinks: false
+        cleanWs() //Elimina el workspace al terminar el pipeline
+
        }
        failure {
         // One or more steps need to be included within each condition's block.
