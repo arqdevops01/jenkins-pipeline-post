@@ -2,17 +2,7 @@ pipeline {
     agent any
    
     stages {
-        stage('Create  directory for the WEB Application')
-        {
-            steps{
-               
-                //Fisrt, drop the directory if exists
-                sh 'rm -rf /home/jenkins/tomcat-web'
-                //Create the directory
-                sh 'mkdir /home/jenkins/tomcat-web'
-                
-            }
-        }
+        
         stage('Drop the Apache Tomcat Docker container'){
             steps {
             echo 'droping the container...'
@@ -22,15 +12,7 @@ pipeline {
         stage('Create the Tomcat container') {
             steps {
             echo 'Creating the container...'
-            sh 'docker run -dit --name tomcat1 -p 9090:8080  -v /home/jenkins/tomcat-web:/usr/local/tomcat/webapps tomcat:9.0'
-            }
-        }
-        stage('Copy the web application to the container directory') {
-            steps {
-                echo 'Creating the shopping folder in the container'
-                sh 'mkdir /home/jenkins/tomcat-web/shopping'
-                echo 'Copying web application...'             
-                sh 'cp -r shopping/* /home/jenkins/tomcat-web/shopping'
+            sh 'docker run -dit --name tomcat1 -p 9090:8080  -v /home/developer/tomcat-web:/usr/local/tomcat/webapps tomcat:9.0'
             }
         }
     }
