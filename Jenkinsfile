@@ -18,6 +18,10 @@ pipeline {
     }
 
     post {
+
+        always{
+            echo 'Esto siempre se ejecuta independiente si es exitoso o no el pipeline'
+        }
         success {
         // One or more steps need to be included within each condition's block.
         echo 'the deployment has worked'
